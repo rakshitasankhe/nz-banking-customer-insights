@@ -1,36 +1,33 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import joblib
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-# Load the trained Random Forest model
-model = joblib.load('output/random_forest_model.pkl')
+st.set_page_config(page_title="NZ Banking Churn Predictor", layout="centered")
 
-st.title("🏦 NZ Banking Churn Predictor")
+st.title("🏦 NZ Banking Customer Churn Predictor")
 
-# Input widgets matching your model's features
-age = st.slider("Age", 18, 90, 30)
-tenure = st.slider("Tenure (Years)", 0, 10, 3)
-account_balance = st.number_input("Account Balance", min_value=0, value=5000)
-credit_score = st.slider("Credit Score", 300, 900, 650)
-is_active = st.selectbox("Is Active (1=Yes, 0=No)", options=[1, 0], index=0)
-num_of_products = st.selectbox("Number of Products", options=[1, 2, 3, 4], index=0)
+# Load model and training data features once
+@st.cache_data
+def load_model():
+    model = joblib.load('output/random_forest_model.pkl')
+    return model
 
-# Prepare input DataFrame with the exact feature order
-input_df = pd.DataFrame({
-    'Age': [age],
-    'Tenure': [tenure],
-    'AccountBalance': [account_balance],
-    'IsActive': [is_active],
-    'NumOfProducts': [num_of_products],
-    'CreditScore': [credit_score]
-})
+@st.cache_data
+def load_features():
+    # Assuming you saved feature names or load from your training data CSV headers
+    return ['Age', 'Tenure', 'AccountBalance', 'IsActive', 'NumOfProducts', 'CreditScore']
 
-if st.button("Predict Churn"):
-    probability = model.predict_proba(input_df)[:, 1][0]
-    prediction = model.predict(input_df)[0]
+model = load_model()
+features = load_features()
 
-    st.write(f"### Churn Probability: {probability:.2f}")
-    if prediction == 1:
-        st.markdown("### ❌ Likely to Churn")
-    else:
-        st.markdown("### ✅ Likely to Stay")
+# Input widgets
+st.sidebar.header("Input Customer Data")
+
+age = st.sidebar.slider("Age", 18, 90, 35)
+tenure = st.sidebar.slider("Tenure (Years)", 0, 10, 3)
+account_balance = st.sidebar.number_input("Account Balance ($)", min_value=0.0, max_value=100000.0, value=5000.0, step=100.0)
+is_active = st.sidebar.selectbox("Is Account Active?", options=[1, 0], format_func=lambda x: "Yes" if x==1 else "No")
+num_products = st.sidebar.slider("Number of Products", 1, 5, 1)_
