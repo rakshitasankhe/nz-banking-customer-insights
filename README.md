@@ -78,8 +78,11 @@ This Streamlit app predicts customer churn based on user inputs and a trained Ra
 ### How to Use
 To run app in cmd:
      streamlit run app.py
+
+https://nz-banking-customer-insights.streamlit.app/
+
 1. Adjust the input parameters in the sidebar.  
-2. Click the **Calculate** button to view churn prediction.  
+2. Click the **Calculate** button to view churn prediction.
 
 ### Future Plans
 - Add model comparison (e.g., Logistic Regression vs Random Forest)  
