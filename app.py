@@ -20,21 +20,22 @@ is_active = st.sidebar.selectbox("Is Account Active?", options=[1, 0], format_fu
 num_products = st.sidebar.slider("Number of Products", 1, 5, 1)
 credit_score = st.sidebar.slider("Credit Score", 300, 900, 600)
 
-# Prepare input dataframe
-input_df = pd.DataFrame({
-    'Age': [age],
-    'Tenure': [tenure],
-    'AccountBalance': [account_balance],
-    'IsActive': [is_active],
-    'NumOfProducts': [num_products],
-    'CreditScore': [credit_score]
-})
+# Button to trigger prediction
+if st.sidebar.button("Calculate"):
+    input_df = pd.DataFrame({
+        'Age': [age],
+        'Tenure': [tenure],
+        'AccountBalance': [account_balance],
+        'IsActive': [is_active],
+        'NumOfProducts': [num_products],
+        'CreditScore': [credit_score]
+    })
 
-# Predict churn probability
-probability = model.predict_proba(input_df)[:, 1][0]
-prediction = "❌ Will Churn" if probability > 0.5 else "✅ Will Stay"
+    probability = model.predict_proba(input_df)[:, 1][0]
+    prediction = "❌ Will Churn" if probability > 0.5 else "✅ Will Stay"
 
-# Display results
-st.subheader("Prediction Results")
-st.write(f"Churn Probability: **{probability:.2f}**")
-st.write(f"Prediction: **{prediction}**")
+    st.subheader("Prediction Results")
+    st.write(f"Churn Probability: **{probability:.2f}**")
+    st.write(f"Prediction: **{prediction}**")
+else:
+    st.write("Adjust inputs and click **Calculate** to see prediction.")
