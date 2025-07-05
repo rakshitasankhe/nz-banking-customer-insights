@@ -85,7 +85,6 @@ https://nz-banking-customer-insights.streamlit.app/
 2. Click the **Calculate** button to view churn prediction.
 
 ### Future Plans
-- Add model comparison (e.g., Logistic Regression vs Random Forest)  
 - Enable file upload for batch predictions  
 - Visualize feature importances and prediction explanations
 
