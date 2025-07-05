@@ -76,6 +76,8 @@ This Streamlit app predicts customer churn based on user inputs and a trained Ra
   Shows churn probability and prediction result with user-friendly messages.
 
 ### How to Use
+To run app in cmd:
+     streamlit run app.py
 1. Adjust the input parameters in the sidebar.  
 2. Click the **Calculate** button to view churn prediction.  
 
