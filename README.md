@@ -43,6 +43,10 @@ nz-banking-customer-insights/
 
 A Power BI dashboard was also created using the cleaned dataset to visualize key churn indicators.
 
+## 📊 Dashboard Preview
+
+![Dashboard](reports/dashboard.png)
+
 ## 🧠 Key Findings
 
 - Age and account balance are strong churn predictors.
